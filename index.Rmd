@@ -1,7 +1,7 @@
 ---
 title       : "Recent advances in health economic modelling" 
 subtitle    : "Moment-generating functions, fast Fourier transforms and the Delta-PSA method"
-author      : "Tristan Snowsill"
+author      : "Tristan Snowsill, @TMSnowsill"
 date        : "September 16, 2020"
 job         : "Senior Research Fellow"
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
@@ -35,72 +35,6 @@ so we will use modelling
 
 We frequently identify a finite number of discrete health states and events
 which lead to changes in (transitions between) these health states
-
----
-
-# Taxonomy of models
-
-```{r model-taxonomy, echo=FALSE}
-knitr::asis_output('
-<table class="academic-table">
-  <thead>
-    <tr>
-      <td colspan="3" rowspan="3"></td>
-      <th>A</th>
-      <th>B</th>
-      <th>C</th>
-      <th>D</th>
-    </tr>
-    <tr>
-      <td colspan="2">Cohort/aggregate levels/counts</td>
-      <td colspan="2">Individual level</td>
-    </tr>
-    <tr>
-      <td>Expected value, continuous state, deterministic</td>
-      <td>Markovian, discrete state, stochastic</td>
-      <td>Markovian, discrete state, individuals</td>
-      <td>Non-Markovian, discrete-state, individuals</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td rowspan="2">No interaction allowed</td>
-      <td>Untimed</td>
-      <td>Decision tree rollback</td>
-      <td>Simulated decision tree</td>
-      <td colspan="2">Individual sampling model (ISM): Simulated patient-level decision tree (SPLDT)</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Timed</td>
-      <td>Markov model (evaluated deterministically)</td>
-      <td>Simulated Markov model (SMM)</td>
-      <td colspan="2">Individual sampling model (ISM): Simulated patient-level Markov model (SPLMM) (variations as in quadrant below for patient level models with interaction)</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td rowspan="2">Interaction allowed</td>
-      <td>Discrete time</td>
-      <td>System dynamics (finite difference equations, FDE)</td>
-      <td>Discrete time Markov chain model (DTMC)</td>
-      <td>Discrete-time individual event history model (DT, IEH)</td>
-      <td>Discrete individual simulation (DT, DES)</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>Continuous time</td>
-      <td>System dynamics (ordinary differential equations, ODE)</td>
-      <td>Continuous time Markov chain model (CTMC)</td>
-      <td>Continuous time individual event history model (CT, IEH)</td>
-      <td>Discrete event simulation (CT, DES)</td>
-    </tr>
-  </tbody>
-</table>
-')
-```
-
-<p class="footnote">Source: Brennan A, et al. A taxonomy of model structures for economic evaluation of health technologies. <em>Health Econ</em> 2006; <strong>15</strong>: 1295&ndash;1310</p>
 
 ---
 
@@ -262,7 +196,7 @@ Or if $f_X(t)$ and $g_X(t)$ are zero when $t < 0$ (as is the case for time-to-ev
 variables):
 
 \[
-  (f_X \ast f_Y)(t) = \int_{0}^{\infty}{f_X(s)f_Y(t-s)\mathrm{d}s}
+  (f_X \ast f_Y)(t) = \int_{0}^{t}{f_X(s)f_Y(t-s)\mathrm{d}s}
 \]
 
 When you need to evaluate this for multiple values of $t$ it is challenging
@@ -870,11 +804,8 @@ First derivatives:
 \begin{aligned}
 \frac{\partial g}{\partial \theta_i} &= \sum_{t=0}^T{\frac{\partial g_t}{\partial \theta_i}} \\
   \frac{\partial g_t}{\partial\theta_i} &= \frac{\partial\mathbf{v}_t^\top}{\partial\theta_i} \mathbf{x}_t + \mathbf{v}_t^\top \frac{\partial\mathbf{x}_t}{\partial\theta_i} \\
-\frac{\partial\mathbf{x}_t}{\partial\theta_i} &= \begin{bmatrix}
-  \left(\frac{\partial P_{t-1}^\top}{\partial\theta_1} \mathbf{x}_{t-1} + P_{t-1}^\top \frac{\partial\mathbf{x}_{t-1}}{\partial\theta_1}\right) &
-  \cdots &
-  \left(\frac{\partial P_t^\top}{\partial\theta_n} \mathbf{x}_t + P_t^\top \frac{\partial\mathbf{x}_t}{\partial\theta_n}\right)
-\end{bmatrix}
+\frac{\partial\mathbf{x}_t}{\partial\theta_i} &= 
+  \frac{\partial P_{t-1}^\top}{\partial\theta_i} \mathbf{x}_{t-1} + P_{t-1}^\top \frac{\partial\mathbf{x}_{t-1}}{\partial\theta_i}
 \end{aligned}
 \]
 

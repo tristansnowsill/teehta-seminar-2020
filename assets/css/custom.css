@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+
+em {
+    font-style: italic;
+}
+
+strong {
+    font-weight: bold;
+}
+
+blockquote {
+    display: block;
+    border-left: 10px solid #2c2f4c;
+    padding: 1.5em;
+    background-color: #e2e5f0;
+}
+
+slides > slide > hgroup + article blockquote p {
+    margin-bottom: 0;
+}
+
+.title-slide {
+    background-color: #2c2f4c;
+}
+
+.title-slide hgroup p {
+    color: #c2c9e5;
+}
+
+.title-slide hgroup>h1,
+.title-slide hgroup>h2 {
+    font-family: "Lato", sans-serif;
+    letter-spacing: normal;
+}
+
+.title-slide hgroup>h1 {
+    color: #e2e5f0;
+}
+
+.title-slide hgroup>h2 {
+    color: #c2c9e5;
+}
+
+thead td,
+thead th {
+    text-align: initial;
+}
+
+table.academic-table {
+    border-top: 3px solid black;
+    border-bottom: 3px solid black;
+}
+
+table.academic-table tr,
+table.academic-table td,
+table.academic-table th {
+    color: black;
+    background-color: transparent;
+    font-family: 'Palatino Linotype', Georgia, 'Times New Roman', Times, serif;
+}
+
+table.academic-table tbody td {
+    line-height: normal;
+    vertical-align: middle;
+}
+
+table.academic-table tr>td:first-child {
+    font-weight: normal;
+}
+
+table.academic-table tr,
+table.academic-table td {
+    border: none;
+}
+
+table.academic-table thead {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+p.footnote {
+    font-size: small;
+    font-family: 'Palatino Linotype', Georgia, 'Times New Roman', Times, serif;
+}
